@@ -25,6 +25,7 @@ services:
       - "3000:3000"
     volumes:
       - .:/usr/src/app
+      - /usr/src/app/node_modules
     command: sh -c "npm run seed && npm run dev"
     networks:
       - backend
