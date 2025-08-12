@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - backend
+
+  app:
+    build: .
+    container_name: express_app
+    depends_on:
+      - mongo
+    environment:
+      MONGO_URI: mongodb://mongo:27017/eventsdb
+      MONGO_URI_TEST: mongodb://mongo:27017/simplytech_test
+      JWT_SECRET: supersecret
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app      
+    command: sh -c "npm run seed && npm run dev"
+    networks:
+      - backend
+
+volumes:
+  mongo_data:
+
+networks:
+  backend:
