@@ -23,7 +23,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - .:/usr/src/app      
+      - .:/usr/src/      
     command: sh -c "npm run seed && npm run dev"
     networks:
       - backend
