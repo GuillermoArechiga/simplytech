@@ -11,22 +11,20 @@ services:
       - backend
 
   app:
-    build: .
-    container_name: express_app
-    depends_on:
-      - mongo
-    environment:
-      MONGO_URI: mongodb://mongo:27017/eventsdb
-      MONGO_URI_TEST: mongodb://mongo:27017/simplytech_test
-      JWT_SECRET: supersecret
-      PORT: 3000
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/usr/src/      
-    command: sh -c "npm run seed && npm run dev"
-    networks:
-      - backend
+  build: .
+  container_name: express_app
+  depends_on:
+    - mongo
+  environment:
+    MONGO_URI: mongodb://mongo:27017/eventsdb
+    MONGO_URI_TEST: mongodb://mongo:27017/simplytech_test
+    JWT_SECRET: supersecret
+    PORT: 3000
+  ports:
+    - "3000:3000"
+  networks:
+    - backend
+  command: sh -c "npm run seed && npm run dev"
 
 volumes:
   mongo_data:
