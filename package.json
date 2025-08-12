@@ -4,8 +4,9 @@
   "description": "RestAPI Challenge",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
+    "seed": "node dist/seed.js",
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
-    "seed": "ts-node src/seed.ts",
     "test": "jest"
   },
   "repository": {
