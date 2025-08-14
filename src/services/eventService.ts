@@ -22,6 +22,15 @@ export class EventService {
     return Event.find({ createdBy: userId });
   }
 
+  static async getAvailableEvents(userId: string) {
+
+      const availableEvent = await Event.find({
+        createdBy: { $ne: userId },
+        currentCapacity: { $gt: 0 },
+      }).populate("createdBy", "name email");
+      return availableEvent;
+  }
+
   static async updateEvent(eventId: string, userId: string, data: unknown) {
     const event = await Event.findById(eventId);
     if (!event) throw new Error("Event not found");
