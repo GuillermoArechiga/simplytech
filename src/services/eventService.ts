@@ -23,12 +23,10 @@ export class EventService {
   }
 
   static async getAvailableEvents(userId: string) {
-
-      const availableEvent = await Event.find({
-        createdBy: { $ne: userId },
-        currentCapacity: { $gt: 0 },
-      }).populate("createdBy", "name email");
-      return availableEvent;
+    const availableEvent = await Event.find({
+      currentCapacity: { $gt: 0 },
+    }).populate("createdBy", "name email");
+    return availableEvent;
   }
 
   static async updateEvent(eventId: string, userId: string, data: unknown) {

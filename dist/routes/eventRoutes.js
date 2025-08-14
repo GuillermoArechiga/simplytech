@@ -25,6 +25,15 @@ router.get("/", auth_1.authMiddleware, async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+router.get("/available", auth_1.authMiddleware, async (req, res) => {
+    try {
+        const events = await eventService_1.EventService.getAvailableEvents(req.user.id);
+        res.json(events);
+    }
+    catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 router.get("/mine", auth_1.authMiddleware, async (req, res) => {
     try {
         const events = await eventService_1.EventService.getUserEventsWithReservations(req.user.id);

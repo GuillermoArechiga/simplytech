@@ -21,6 +21,13 @@ class EventService {
     static async getUserEvents(userId) {
         return Events_1.Event.find({ createdBy: userId });
     }
+    static async getAvailableEvents(userId) {
+        const availableEvent = await Events_1.Event.find({
+            createdBy: { $ne: userId },
+            currentCapacity: { $gt: 0 },
+        }).populate("createdBy", "name email");
+        return availableEvent;
+    }
     static async updateEvent(eventId, userId, data) {
         const event = await Events_1.Event.findById(eventId);
         if (!event)
